@@ -3,6 +3,7 @@ A Worms like developed in Javascript
 
 ### Current state
 #### V0.1
+![v0.1](http://i.imgur.com/iJ1IdMd.png?1)
 * The field is generated using cardinal splines. You can find the source of my inspiration here: [epistemex/cardinal-spline-js](https://github.com/epistemex/cardinal-spline-js).
 I will try to find an easiest solution later (I'm currently forced to make my worms move too fast because of some clipping in my curve).
 * The worm can move, aim, change direction.
