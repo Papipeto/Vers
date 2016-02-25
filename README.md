@@ -11,6 +11,7 @@ I will try to find an easiest solution later (I'm currently forced to make my wo
 ### Todo
 * Adding textures
 * Make the worm jump!
+* Handle steepness (the works can currently climb everything)
 * Basic weapon (other weapons later?)
 * Damage the field
 * Multiplayer offline
