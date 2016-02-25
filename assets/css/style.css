@@ -1,0 +1,10 @@
+body, html {
+	margin: 0;
+	padding: 0;
+}
+
+canvas#gameBoard {
+	margin: auto;
+	display: block;
+	border: 1px solid black;
+}
