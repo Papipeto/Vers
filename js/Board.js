@@ -10,7 +10,8 @@ function Board(oCanvas) {
 	this.tension = 0;
 	this.isClosed = false;
 	this.numOfSegments = 30;
-};
+	this.showPoints = false;
+}
 
 Board.prototype.generate = function() {
 	this.field[0] = getRandomInt(this.minHeight, this.maxHeight);
@@ -48,11 +49,11 @@ Board.prototype.fillField = function(field) {
 	var filledField = [];
 
 	for(var i = 0; i <= this.width / this.step; i++) {
-		var tmpMinus1 = this.field[i];
+		tmpMinus1 = this.field[i];
 		filledField[i*30] = tmpMinus1;
 
 		if (i * 30 < this.width) {
-			var tmpPlus1 = this.field[i + 1];
+			tmpPlus1 = this.field[i + 1];
 			diffBetweenSteps = tmpPlus1 - tmpMinus1;
 
 			for(var j = 0; j < this.step; j++) {
@@ -64,23 +65,20 @@ Board.prototype.fillField = function(field) {
 	return filledField;
 };
 
-Board.prototype.drawCurve = function(showPoints) {
+Board.prototype.drawCurve = function() {
 
 	this.context.beginPath();
-
 	this.drawLines(this.getCurvePoints(this.field));
 
-	showPoints = false;
-
-	if (showPoints) {
+	if (this.showPoints) {
 		for(var i = 1;i<=this.field.length;i++) {
 			this.context.rect(i * this.step, this.field[i] - 2, 4, 4);
-		this.context.fillText(i * this.step, i * this.step, this.field[i]);
+			this.context.fillText(i * this.step, i * this.step, this.field[i]);
 		}
 	}
 
 	this.context.stroke();
-}
+};
 
 Board.prototype.getCurvePoints = function(field) {
 	var _field = [], res = [],
@@ -129,14 +127,11 @@ Board.prototype.getCurvePoints = function(field) {
 		}
 	}
 	return res;
-}
+};
 
 Board.prototype.drawLines = function(field) {
 	this.context.moveTo(0, field[0]);
 	for(i = 0; i < field.length; i += 2) {
 		this.context.lineTo(i, field[i]);
-		if (i% this.step == 0) {
-			this.context.fillText(i, i, field[i]);
-		}
-	};
-}
+	}
+};

@@ -4,10 +4,14 @@ function Vers(oCanvas, field, weapon,team) {
 	this.field = field;
 	this.vHeight = 15;
 	this.vWidth = 5;
-	this.posX = 50;
+	do { //due to the curve clipping, only posX%2==0 is on the curve.
+		this.posX = getRandomInt(50, this.cWidth - 50);
+	}
+	while(this.posX % 2 !== 0);
 	this.moveSpeed = 2;
 	this.weapon = weapon;
-	if(team = 1) {
+	this.team = team;
+	if(this.posX <= this.cWidth / 2) {
 		this.direction = "right";
 	}
 	else {
@@ -23,7 +27,7 @@ Vers.prototype.draw = function(oCanvas) {
 	this.context.closePath();
 
 	this.weapon.draw(this.posX, this.field[this.posX] - this.vHeight / 1.25, this.direction);
-}
+};
 
 Vers.prototype.move = function(direction) {
 	switch(direction) {
@@ -40,7 +44,7 @@ Vers.prototype.move = function(direction) {
 		this.direction = "right";
 		break;
 	}
-}
+};
 
 Vers.prototype.jump = function() {
 	if(this.direction == "left") {
@@ -49,4 +53,4 @@ Vers.prototype.jump = function() {
 	else {
 		alert("je saute à droite!");
 	}
-}
+};

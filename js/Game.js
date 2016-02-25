@@ -1,7 +1,7 @@
 function Game(vers, weapon) {	
 	this.vers = vers;
 	this.weapon = weapon;
-};
+}
 
 Game.prototype.keyDownHandler = function(e) {
 	switch(e.keyCode) {

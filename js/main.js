@@ -11,14 +11,14 @@ var oCanvas = {
 var board = new Board(oCanvas);
 var field = board.generate();
 var weapon =  new Weapon(oCanvas);
-var vers = new Vers(oCanvas, field, weapon, 1);
+var vers = new Vers(oCanvas, field, weapon, 2);
 var game = new Game(vers, weapon);
 
 document.addEventListener("keydown", game.keyDownHandler, false);
 
 (function animloop(){
 	utils.computeFPS();
-	utils.clearCanvas(oCanvas);
+	clearCanvas(oCanvas);
 	board.drawCurve();
 	vers.draw();
 

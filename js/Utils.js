@@ -17,11 +17,7 @@ function Utils() {
 			stats.innerHTML = result + " fps";
 		})();
 	};
-
-	this.clearCanvas = function(oCanvas) {
-		oCanvas.context.clearRect(0, 0, oCanvas.width, oCanvas.height);
-	}
-};
+}
 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
@@ -29,4 +25,8 @@ function getRandomInt(min, max) {
 
 function convertDegToRad(degre) {
 	return degre * Math.PI / 180;
+}
+
+function clearCanvas(oCanvas) {
+	oCanvas.context.clearRect(0, 0, oCanvas.width, oCanvas.height);
 }
