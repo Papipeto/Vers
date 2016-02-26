@@ -38,11 +38,22 @@ Game.prototype.keyDownHandler = function(e) {
 	}
 };
 
+Game.prototype.keyPressedHandler = function(e) {
+	switch(e.keyCode) {
+		case 13:
+		if(!vers.getJumping()) {
+			vers.activateJump();
+		}
+		break;
+	}
+};
+
 Game.prototype.keyUpHandler = function(e) {
 	switch(e.keyCode) {
 		case 32:
 		if(weapon.isLoaded()) {
 			weapon.shot();
 		}
+		break;
 	}
 };

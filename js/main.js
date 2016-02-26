@@ -16,6 +16,7 @@ var game = new Game(vers, weapon);
 
 document.addEventListener("keydown", game.keyDownHandler, false);
 document.addEventListener("keyup", game.keyUpHandler, false);
+document.addEventListener("keypressed", game.keyPressedHandler, false);
 
 (function animloop(){
 	utils.computeFPS();
