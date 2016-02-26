@@ -20,8 +20,8 @@ document.addEventListener("keydown", game.keyDownHandler, false);
 	utils.computeFPS();
 	utils.displayPosition(vers, field);
 	clearCanvas(oCanvas);
-	// board.drawCurve();
-	board.draw();
+	board.drawCurve();
+	// board.draw();
 	vers.draw();
 
 	if(vers.getJumping()) {

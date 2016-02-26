@@ -10,10 +10,8 @@ function Vers(oCanvas, field, weapon,team) {
 	while(this.posX % 2 !== 0);
 	this.posY = this.field[this.posX];
 	this.moveSpeed = 2;
-	this.jumpHeight = 36;
 	this.jumpWidth = 36;
 	this.jumping = false;
-	this.jumpFactor = 0;
 	this.heightDamage = 80;
 	this.tmpPosY = null;
 	this.tmpPosX = null;
@@ -25,8 +23,6 @@ function Vers(oCanvas, field, weapon,team) {
 	else {
 		this.direction = "left";
 	}
-	this.posX = 0; 
-	this.posY = 0;
 }
 
 Vers.prototype.draw = function(oCanvas) {
@@ -72,7 +68,6 @@ Vers.prototype.jump = function() {
 
 		this.posX = this.tmpPosX;
 		this.posY = this.tmpPosY;
-
 		this.posY = this.tmpPosY - (-(0.02 * Math.pow(this.relX, 2)) + 25);
 
 		if(this.direction == "left" && this.posX > this.vWidth / 2) {
@@ -85,9 +80,7 @@ Vers.prototype.jump = function() {
 		if(this.posY > this.field[this.posX]) {
 			if(this.posY - this.tmpPosY > this.heightDamage) {
 				console.log('Ouch!');
-			}
-			else {
-				console.log('Ouf!');
+				//TODO: implement dmgs
 			}
 			this.posY = this.field[this.posX];
 			this.jumping = false;
@@ -100,8 +93,10 @@ Vers.prototype.getJumping = function() {
 };
 
 Vers.prototype.activateJump = function() {
-	this.absX = this.posX;
-	this.absY = this.posY;
+	this.tmpPosX = this.posX;
+	this.tmpPosY = this.posY;
+	this.relY = 0;
+	this.jumping = true;
 
 	if(this.direction == "left") {
 		this.relX = this.jumpWidth;
@@ -109,11 +104,4 @@ Vers.prototype.activateJump = function() {
 	else {
 		this.relX = -this.jumpWidth;
 	}
-
-	this.relY = 0;
-
-	this.tmpPosX = this.posX;
-	this.tmpPosY = this.posY;
-	console.log("A(" + this.posX + "," + this.posY + ")");
-	this.jumping = true;
 };
