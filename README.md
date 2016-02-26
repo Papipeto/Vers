@@ -11,7 +11,7 @@ I will try to find an easiest solution later (I'm currently forced to make my wo
 ### Todo
 * ~~Randomize worm position (and make it point to the center when it spawns)~~
 * Adding textures
-* Make the worm jump!
+* ~~Make the worm jump!~~
 * Handle steepness (the works can currently climb everything)
 * Basic weapon (other weapons later?)
 * Damage the field
