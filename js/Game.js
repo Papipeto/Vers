@@ -22,9 +22,8 @@ Game.prototype.keyDownHandler = function(e) {
 		break;
 		case 40:
 		if(!vers.getJumping()) {
-			weapon.upWeapon();
+			weapon.downWeapon();
 		}
-		weapon.downWeapon();
 		break;
 		case 13:
 		if(!vers.getJumping()) {

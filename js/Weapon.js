@@ -61,8 +61,12 @@ Weapon.prototype.getAngle = function() {
 Weapon.prototype.load = function() {
 	if(this.power < 100) {
 		this.power += this.powerSpeed;
+		this.loaded = true;
 	}
-	this.loaded = true;
+	else {
+		this.loaded = false;
+		this.shot();
+	}
 };
 
 Weapon.prototype.isLoaded = function() {
