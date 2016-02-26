@@ -16,9 +16,14 @@ Game.prototype.keyDownHandler = function(e) {
 		}
 		break;
 		case 38:
-		weapon.upWeapon();
+		if(!vers.getJumping()) {
+			weapon.upWeapon();
+		}
 		break;
 		case 40:
+		if(!vers.getJumping()) {
+			weapon.upWeapon();
+		}
 		weapon.downWeapon();
 		break;
 		case 13:
@@ -26,5 +31,19 @@ Game.prototype.keyDownHandler = function(e) {
 			vers.activateJump();
 		}
 		break;
+		case 32:
+		if(!vers.getJumping()) {
+			weapon.load();
+		}
+		break;
+	}
+};
+
+Game.prototype.keyUpHandler = function(e) {
+	switch(e.keyCode) {
+		case 32:
+		if(weapon.isLoaded()) {
+			weapon.shot();
+		}
 	}
 };

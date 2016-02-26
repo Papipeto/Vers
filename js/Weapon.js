@@ -1,8 +1,15 @@
 function Weapon(oCanvas) {
 	this.context = oCanvas.context;
+	this.cWidth = oCanvas.width;
+	this.cHeight = oCanvas.height;
 	this.range = 35;
 	this.weaponAngle = 45;
 	this.cursorSpeed = 2;
+	this.loaded = false;
+	this.power = 0;
+	this.powerDisplayWidth = 100;
+	this.powerDisplayHeight = 20;
+	this.powerSpeed = 2;
 }
 
 Weapon.prototype.draw = function(posX, posY, direction, range) {
@@ -49,4 +56,35 @@ Weapon.prototype.downWeapon = function() {
 
 Weapon.prototype.getAngle = function() {
 	return convertDegToRad(this.weaponAngle);
+};
+
+Weapon.prototype.load = function() {
+	if(this.power < 100) {
+		this.power += this.powerSpeed;
+	}
+	this.loaded = true;
+};
+
+Weapon.prototype.isLoaded = function() {
+	return this.loaded;
+};
+
+Weapon.prototype.shot = function() {
+	alert('BOOM ' + this.power);
+	this.loaded = false;
+	this.power = 0;
+};
+
+Weapon.prototype.drawPower = function() {
+	this.context.beginPath();
+	this.context.rect(this.powerDisplayHeight + 1, this.cHeight - this.powerDisplayHeight * 2, this.power, this.powerDisplayHeight);
+	this.context.fillStyle = "#ff5555";
+	this.context.fill();
+	this.context.closePath();
+
+	this.context.beginPath();
+	this.context.rect(this.powerDisplayHeight, this.cHeight - this.powerDisplayHeight * 2, this.powerDisplayWidth, this.powerDisplayHeight);
+	this.context.strokeStyle = "#000000";
+	this.context.stroke();
+	this.context.closePath();
 };
