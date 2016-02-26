@@ -8,7 +8,15 @@ function Vers(oCanvas, field, weapon,team) {
 		this.posX = getRandomInt(50, this.cWidth - 50);
 	}
 	while(this.posX % 2 !== 0);
+	this.posY = this.field[this.posX];
 	this.moveSpeed = 2;
+	this.jumpHeight = 36;
+	this.jumpWidth = 36;
+	this.jumping = false;
+	this.jumpFactor = 0;
+	this.heightDamage = 80;
+	this.tmpPosY = null;
+	this.tmpPosX = null;
 	this.weapon = weapon;
 	this.team = team;
 	if(this.posX <= this.cWidth / 2) {
@@ -17,22 +25,24 @@ function Vers(oCanvas, field, weapon,team) {
 	else {
 		this.direction = "left";
 	}
+	this.posX = 0; 
+	this.posY = 0;
 }
 
 Vers.prototype.draw = function(oCanvas) {
 	this.context.beginPath();
-	this.context.rect(this.posX - this.vWidth / 2, this.field[this.posX] - this.vHeight, this.vWidth, this.vHeight);
+	this.context.rect(this.posX - this.vWidth / 2, this.posY - this.vHeight, this.vWidth, this.vHeight);
 	this.context.fillStyle = "#ff0000";
 	this.context.fill();
 	this.context.closePath();
 
-	this.weapon.draw(this.posX, this.field[this.posX] - this.vHeight / 1.25, this.direction);
+	this.weapon.draw(this.posX, this.posY - this.vHeight / 1.25, this.direction);
 };
 
 Vers.prototype.move = function(direction) {
 	switch(direction) {
 		case "left":
-		if(this.posX > 0 + this.vWidth) {
+		if(this.posX > this.vWidth) {
 			this.posX -= this.moveSpeed;
 		}
 		this.direction = "left";
@@ -44,13 +54,66 @@ Vers.prototype.move = function(direction) {
 		this.direction = "right";
 		break;
 	}
+	this.posY = this.field[this.posX];
 };
 
 Vers.prototype.jump = function() {
+	if(this.jumping) {
+		if(this.direction == "left") {
+			if(this.posX > this.vWidth) {
+				this.relX--;
+			}
+		}
+		else {
+			if(this.posX < this.cWidth - this.vWidth / 2) {
+				this.relX++;
+			}
+		}
+
+		this.posX = this.tmpPosX;
+		this.posY = this.tmpPosY;
+
+		this.posY = this.tmpPosY - (-(0.02 * Math.pow(this.relX, 2)) + 25);
+
+		if(this.direction == "left" && this.posX > this.vWidth / 2) {
+			this.posX = this.posX + this.relX - this.jumpWidth;
+		}
+		else if (this.posX < this.cWidth - this.vWidth / 2){
+			this.posX = this.posX + this.relX + this.jumpWidth;
+		}
+
+		if(this.posY > this.field[this.posX]) {
+			if(this.posY - this.tmpPosY > this.heightDamage) {
+				console.log('Ouch!');
+			}
+			else {
+				console.log('Ouf!');
+			}
+			this.posY = this.field[this.posX];
+			this.jumping = false;
+		}
+	}
+};
+
+Vers.prototype.getJumping = function() {
+	return this.jumping;
+};
+
+Vers.prototype.activateJump = function() {
+	this.absX = this.posX;
+	this.absY = this.posY;
+
 	if(this.direction == "left") {
-		alert("je saute à gauche!");
+		this.relX = this.jumpWidth;
 	}
 	else {
-		alert("je saute à droite!");
+		this.relX = -this.jumpWidth;
 	}
+
+	this.relY = 0;
+
+	this.tmpPosX = this.posX;
+	this.tmpPosY = this.posY;
+	console.log("A(" + this.posX + "," + this.posY + ")");
+	this.jumping = true;
 };

@@ -7,7 +7,7 @@ function Board(oCanvas) {
 	this.maxHeight = Math.round(this.height/1.25);
 	this.step = 30;
 	this.range = 100;
-	this.tension = 0;
+	this.tension = 0.2;
 	this.isClosed = false;
 	this.numOfSegments = 30;
 	this.showPoints = false;
@@ -27,6 +27,7 @@ Board.prototype.generate = function() {
 		}
 		this.field[i] = randHeight;
 	}
+	return this.fillField(this.field);
 	return this.getCurvePoints(this.field);
 };
 

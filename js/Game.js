@@ -5,11 +5,15 @@ function Game(vers, weapon) {
 
 Game.prototype.keyDownHandler = function(e) {
 	switch(e.keyCode) {
-		case 39: 
-		vers.move("right");
+		case 39:
+		if(!vers.getJumping()) {
+			vers.move("right");
+		}
 		break;
 		case 37:
-		vers.move("left");
+		if(!vers.getJumping()) {
+			vers.move("left");
+		}
 		break;
 		case 38:
 		weapon.upWeapon();
@@ -18,7 +22,9 @@ Game.prototype.keyDownHandler = function(e) {
 		weapon.downWeapon();
 		break;
 		case 13:
-		vers.jump();
+		if(!vers.getJumping()) {
+			vers.activateJump();
+		}
 		break;
 	}
 };

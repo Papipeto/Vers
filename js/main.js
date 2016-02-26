@@ -18,9 +18,15 @@ document.addEventListener("keydown", game.keyDownHandler, false);
 
 (function animloop(){
 	utils.computeFPS();
+	utils.displayPosition(vers, field);
 	clearCanvas(oCanvas);
-	board.drawCurve();
+	// board.drawCurve();
+	board.draw();
 	vers.draw();
+
+	if(vers.getJumping()) {
+		vers.jump();
+	}
 
 	requestAnimationFrame(animloop);
 })();
