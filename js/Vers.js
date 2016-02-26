@@ -77,7 +77,7 @@ Vers.prototype.jump = function() {
 			this.posX = this.posX + this.relX + this.jumpWidth;
 		}
 
-		if(this.posY > this.field[this.posX]) {
+		if(this.posY > this.field[this.posX] && this.posX % 2 === 0) {
 			if(this.posY - this.tmpPosY > this.heightDamage) {
 				console.log('Ouch!');
 				//TODO: implement dmgs

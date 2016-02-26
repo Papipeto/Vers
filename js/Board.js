@@ -27,7 +27,7 @@ Board.prototype.generate = function() {
 		}
 		this.field[i] = randHeight;
 	}
-	return this.fillField(this.field);
+	// return this.fillField(this.field);
 	return this.getCurvePoints(this.field);
 };
 
