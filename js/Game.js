@@ -52,7 +52,7 @@ Game.prototype.keyUpHandler = function(e) {
 	switch(e.keyCode) {
 		case 32:
 		if(weapon.isLoaded()) {
-			weapon.shot();
+			weapon.shot(vers);
 		}
 		break;
 	}

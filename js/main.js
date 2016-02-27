@@ -10,7 +10,7 @@ var oCanvas = {
 
 var board = new Board(oCanvas);
 var field = board.generate();
-var weapon =  new Weapon(oCanvas);
+var weapon =  new Weapon(oCanvas, field);
 var vers = new Vers(oCanvas, field, weapon, 2);
 var game = new Game(vers, weapon);
 
@@ -20,12 +20,16 @@ document.addEventListener("keypressed", game.keyPressedHandler, false);
 
 (function animloop(){
 	utils.computeFPS();
-	utils.displayPosition(vers, field);
+	utils.displayPosition(vers);
 	clearCanvas(oCanvas);
 	board.drawCurve();
 	// board.draw();
 	vers.draw();
 	weapon.drawPower();
+
+	if(weapon.getShooting()) {
+		weapon.drawShot();
+	}
 
 	if(vers.getJumping()) {
 		vers.jump();
