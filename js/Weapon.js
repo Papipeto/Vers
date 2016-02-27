@@ -1,13 +1,18 @@
 function Weapon(oCanvas, field) {
 	this.field = field;
+	this.oCanvas = oCanvas;
 	this.context = oCanvas.context;
 	this.cWidth = oCanvas.width;
 	this.cHeight = oCanvas.height;
 	this.range = 35;
 	this.weaponAngle = 45;
 	this.cursorSpeed = 2;
-	this.cursorX = 0;
-	this.cursorY = 0;
+	this.cursor = {
+		x: 0,
+		y: 0
+	};
+	this.cursor.x = 0;
+	this.cursor.y = 0;
 	this.loaded = false;
 	this.power = 0;
 	this.powerDisplayWidth = 100;
@@ -17,6 +22,7 @@ function Weapon(oCanvas, field) {
 	this.shootX = 0;
 	this.shootY = 0;
 	this.endPoint = {};
+	this.aimBlocked = false;
 }
 
 Weapon.prototype.draw = function(posX, posY, direction, range) {
@@ -34,19 +40,19 @@ Weapon.prototype.drawRange = function(posX, posY) {
 };
 
 Weapon.prototype.drawPointer = function(posX, posY, direction) {
-	this.cursorX = 0;
-	this.cursorY = 0;
+	this.cursor.x = 0;
+	this.cursor.y = 0;
 
 	if (direction == "left") {
-		this.cursorX = posX - this.range * Math.cos(this.getAngle());
+		this.cursor.x = posX - this.range * Math.cos(this.getAngle());
 	}
 	else {
-		this.cursorX = posX + this.range * Math.cos(this.getAngle());
+		this.cursor.x = posX + this.range * Math.cos(this.getAngle());
 	}
-	this.cursorY = posY - this.range * Math.sin(this.getAngle());
+	this.cursor.y = posY - this.range * Math.sin(this.getAngle());
 
 	this.context.beginPath();
-	this.context.rect(this.cursorX, this.cursorY, 3, 3);
+	this.context.rect(this.cursor.x, this.cursor.y, 3, 3);
 	this.context.fill();
 	this.context.closePath();
 };
@@ -82,16 +88,22 @@ Weapon.prototype.isLoaded = function() {
 	return this.loaded;
 };
 
-Weapon.prototype.shot = function(vers) {
-	this.shootDirection = vers.direction;
+Weapon.prototype.activateShot = function(vers) {
+	// this.shootDirection = vers.direction;
+	this.shot = new Shot(this, vers, this.power, this.field, this.oCanvas, this.cursor);
 	this.loaded = false;
 	this.power = 0;
 	this.shooting = true;
-	this.vPosX = vers.posX;
-	this.vPosY = vers.posY - 10;
-	this.shootX = this.vPosX;
-	this.shootA = (this.vPosY - this.cursorY) / (this.vPosX - this.cursorX);
-	this.shootB = this.vPosY - this.shootA * this.vPosX;
+	// this.vPosX = vers.posX;
+	// this.vPosY = vers.posY - 10;
+	// this.shootX = this.vPosX;
+	// this.shootA = (this.vPosY - this.cursor.y) / (this.vPosX - this.cursor.x);
+	// this.shootB = this.vPosY - this.shootA * this.vPosX;
+};
+
+Weapon.prototype.shoot = function() {
+	this.aimBlocked = true;
+	this.shot.draw();
 };
 
 Weapon.prototype.drawPower = function() {
@@ -108,47 +120,42 @@ Weapon.prototype.drawPower = function() {
 	this.context.closePath();
 };
 
-Weapon.prototype.drawShot = function() {
+// Weapon.prototype.drawShot = function() {
 
-	if(this.shootDirection == 'left') {
-		this.shootX--;
-		if(this.shootX < 0) {
-		}
-	}
-	else {
-		if(this.shootX > this.cWidth) {
-		}
-		this.shootX++;
-	}
+// 	if(this.shootDirection == 'left') {
+// 		this.shootX--;
+// 		if(this.shootX < 0) {
+// 		}
+// 	}
+// 	else {
+// 		if(this.shootX > this.cWidth) {
+// 		}
+// 		this.shootX++;
+// 	}
 
-	if(this.shootX < 0 || this.shootX > this.cWidth) {
-		this.endShoot();
-	}
+// 	if(this.shootX < 0 || this.shootX > this.cWidth) {
+// 		this.endShoot();
+// 	}
 	
-	this.shootY = this.shootA * this.shootX + this.shootB;
+// 	this.shootY = this.shootA * this.shootX + this.shootB;
 
-	if(this.shootY >= this.field[Math.floor(this.shootX)] && this.shootX % 2 === 0) {
-		this.endShoot(true);
-	}
+// 	if(this.shootY >= this.field[Math.floor(this.shootX)] && this.shootX % 2 === 0) {
+// 		this.endShoot(true);
+// 	}
 
 
-	this.context.beginPath();
-	this.context.moveTo(this.vPosX, this.vPosY);
-	this.context.lineTo(this.shootX, this.shootY);
-	this.context.stroke();
-	this.context.closePath();
-};
+// 	this.context.beginPath();
+// 	this.context.moveTo(this.vPosX, this.vPosY);
+// 	this.context.lineTo(this.shootX, this.shootY);
+// 	this.context.stroke();
+// 	this.context.closePath();
+// };
 
-Weapon.prototype.getShooting = function() {
+Weapon.prototype.isShooting = function() {
 	return this.shooting;
 };
 
 Weapon.prototype.endShoot = function(hit) {
-	if(hit) {
-		console.log('Vous avez touché le terrain!');
-	}
-	else {
-		console.log('Votre tir s\'est perdu!');
-	}
 	this.shooting = false;
+	this.aimBlocked = false;
 };

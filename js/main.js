@@ -27,8 +27,8 @@ document.addEventListener("keypressed", game.keyPressedHandler, false);
 	vers.draw();
 	weapon.drawPower();
 
-	if(weapon.getShooting()) {
-		weapon.drawShot();
+	if(weapon.isShooting()) {
+		weapon.shoot();
 	}
 
 	if(vers.getJumping()) {
