@@ -8,6 +8,8 @@ var oCanvas = {
 	context: context
 };
 
+console.log(document.getElementById("gameBoard").style);
+
 var board = new Board(oCanvas);
 var field = board.generate();
 var weapon =  new Weapon(oCanvas, field);
@@ -23,6 +25,7 @@ document.addEventListener("keypressed", game.keyPressedHandler, false);
 	utils.displayPosition(vers);
 	clearCanvas(oCanvas);
 	board.drawCurve();
+	board.color(field);
 	// board.draw();
 	vers.draw();
 	weapon.drawPower();

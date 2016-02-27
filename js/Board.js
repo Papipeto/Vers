@@ -78,6 +78,8 @@ Board.prototype.drawCurve = function() {
 		}
 	}
 
+	this.context.lineWidth = 2.5;
+
 	this.context.stroke();
 };
 
@@ -135,4 +137,16 @@ Board.prototype.drawLines = function(field) {
 	for(i = 0; i < field.length; i += 2) {
 		this.context.lineTo(i, field[i]);
 	}
+};
+
+Board.prototype.color = function(field) {
+	this.context.beginPath();
+	for(i = 0; i < field.length; i += 2) {
+		this.context.moveTo(i, this.height);
+		this.context.lineTo(i, field[i]);
+		this.context.strokeStyle = "#6fe53b";
+		this.context.lineWidth = 2;
+	}
+	this.context.stroke();
+	this.context.closePath();
 };

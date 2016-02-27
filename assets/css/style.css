@@ -7,4 +7,15 @@ canvas#gameBoard {
 	margin: auto;
 	display: block;
 	border: 1px solid black;
+	background: #77B5FE;
+	background-image: url(../images/rsz_cloud.png);
+	background-position: 0px 0px;
+	background-repeat: repeat-x;
+
+	animation: animatedBackground 60s linear infinite;
+}
+
+@keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 100% 0; }
 }
