@@ -1,14 +1,19 @@
 # Vers
 A Worms like developed in Javascript
 
-### Current state
-![v0.1](http://i.imgur.com/iJ1IdMd.png?1)
+#### Current version: V0.22
+
+### Notes
+#### V0.22: Graphics are important too!
+![v0.22](http://i.imgur.com/wBZeDjS.png)
+* I've added some basic (still awesome) graphics.
 
 #### V0.21: Let the battle begin!
 * The worm can now shoot (kind of...). Only straight shots for now, parabolic ones are incoming.
 * The shot detect when it hits the floor or the limits of the canvas.
 
 #### V0.2: The worm is now a thing!
+![v0.2](http://i.imgur.com/iJ1IdMd.png?1)
 * The worm can move, aim, change direction, jump. Yippee-ki-yay!
 
 #### V0.1: The battlefield is ready!
